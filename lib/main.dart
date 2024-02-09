@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage> {
   String noButtonText = "No";
   double yesButtonWidth = 50;
   bool yesButtonPressed = false;
-  String docId = "";
   bool isLoading = true;
 
   UserModel? valentineUser;
@@ -67,11 +66,12 @@ class _HomePageState extends State<HomePage> {
   getQuery() async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-    String queryString = html.window.location.search ?? "";
-    if (queryString.isNotEmpty) {
-      docId = queryString.substring(queryString.lastIndexOf('/') + 1);
+    Uri uri = Uri.parse(html.window.location.href);
+    String id = uri.queryParameters['id'] ?? '';
+
+    if (id.isNotEmpty) {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
-          await _firestore.collection('users').doc(docId).get();
+          await _firestore.collection('users').doc(id).get();
       if (snapshot.exists) {
         valentineUser = UserModel.fromSnapshot(snapshot);
         isLoading = false;

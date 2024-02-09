@@ -119,17 +119,17 @@ class _EnterDetailsState extends State<EnterDetails> {
                   children: [
                     Expanded(
                       child: Text(
-                        "https://valentine.delta-code.com/$docId",
+                        "https://valentine.delta-code.com/?id=$docId",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.itim(
-                            color: appPinkColor, fontSize: 21, height: 1),
+                            color: appPinkColor, fontSize: 20, height: 1),
                       ),
                     ),
                     IconButton(
                         onPressed: () {
                           html.window.navigator.clipboard
                               ?.writeText(
-                                  "https://valentine.delta-code.com/$docId")
+                                  "https://valentine.delta-code.com/?id=$docId")
                               .then((_) {});
                           toast("URL copied");
                         },
@@ -146,7 +146,7 @@ class _EnterDetailsState extends State<EnterDetails> {
               GestureDetector(
                 onTap: () {
                   String url =
-                      'https://wa.me/?text=${Uri.encodeComponent("This one is for you ${valentineName.text}\nhttps://valentine.delta-code.com/$docId")}';
+                      'https://wa.me/?text=${Uri.encodeComponent("This one is for you ${valentineName.text}\nhttps://valentine.delta-code.com/?id=$docId")}';
                   html.window.open(url, '_blank');
                   // showstep5 = false;
                   // showstep4 = false;
