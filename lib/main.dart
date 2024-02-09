@@ -67,7 +67,8 @@ class _HomePageState extends State<HomePage> {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
     Uri uri = Uri.parse(html.window.location.href);
-    String id = uri.queryParameters['id'] ?? '';
+    String id = "IAKEox52Wdf0cK5uFDSb";
+    // uri.queryParameters['id'] ?? '';
 
     if (id.isNotEmpty) {
       DocumentSnapshot<Map<String, dynamic>> snapshot =
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                       : ListView(
                           children: [
                             SizedBox(
-                              height: height(context) * 0.06,
+                              height: height(context) * 0.055,
                             ),
                             Padding(
                               padding:
@@ -219,7 +220,9 @@ class _HomePageState extends State<HomePage> {
                                       image: AssetImage(
                                         yesButtonPressed
                                             ? 'assets/gif/afteryes.GIF'
-                                            : 'assets/gif/${valentineUser?.gifNo ?? 1}.GIF',
+                                            : (valentineUser?.gifNo != -1)
+                                                ? 'assets/gif/${valentineUser?.gifNo}.GIF'
+                                                : "assets/gif/1.GIF",
                                       ),
                                       fit: BoxFit.fitHeight,
                                     ),
@@ -445,6 +448,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
+                            20.height,
                           ],
                         ),
                 )),

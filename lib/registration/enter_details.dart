@@ -26,7 +26,6 @@ class _EnterDetailsState extends State<EnterDetails> {
   bool showstep5 = false;
 
   bool isCreating = false;
-  String quote = "";
 
   TextEditingController nameCont = TextEditingController();
   TextEditingController valentineName = TextEditingController();
@@ -131,7 +130,6 @@ class _EnterDetailsState extends State<EnterDetails> {
                               ?.writeText(
                                   "https://valentine.delta-code.com/?id=$docId")
                               .then((_) {});
-                          toast("URL copied");
                         },
                         icon: Icon(
                           Icons.copy,
@@ -141,7 +139,7 @@ class _EnterDetailsState extends State<EnterDetails> {
                 ),
               ),
               SizedBox(
-                height: height(context) * 0.05,
+                height: height(context) * 0.07,
               ),
               GestureDetector(
                 onTap: () {
@@ -174,7 +172,7 @@ class _EnterDetailsState extends State<EnterDetails> {
                 ),
               ),
               SizedBox(
-                height: height(context) * 0.08,
+                height: height(context) * 0.04,
               ),
               GestureDetector(
                 onTap: () {
@@ -183,6 +181,12 @@ class _EnterDetailsState extends State<EnterDetails> {
                   showstep3 = false;
                   showstep2 = false;
                   showstep1 = false;
+                  nameCont.clear();
+                  valentineName.clear();
+                  numberCont.clear();
+                  selectedIndex = -1;
+                  quoteCont.clear();
+
                   setState(() {});
                 },
                 child: Text(
@@ -307,7 +311,7 @@ class _EnterDetailsState extends State<EnterDetails> {
                 GoogleFonts.itim(color: Colors.white, fontSize: 21, height: 1),
           ),
           SizedBox(
-            height: height(context) * 0.08,
+            height: height(context) * 0.07,
           ),
           GestureDetector(
             onTap: () {
@@ -338,10 +342,10 @@ class _EnterDetailsState extends State<EnterDetails> {
               isCreating = true;
               setState(() {});
               docId = await createUserDocument(UserModel(
-                  yourName: nameCont.text,
-                  valentineName: valentineName.text,
-                  quote: quote,
-                  gifNo: selectedIndex));
+                  yourName: nameCont.text.trim(),
+                  valentineName: valentineName.text.trim(),
+                  quote: quoteCont.text.trim(),
+                  gifNo: selectedIndex + 1));
               isCreating = false;
               setState(() {});
             },
@@ -359,6 +363,7 @@ class _EnterDetailsState extends State<EnterDetails> {
             style:
                 GoogleFonts.itim(color: Colors.white, fontSize: 21, height: 1),
           ),
+          20.height,
         ],
       ),
     );
@@ -498,6 +503,7 @@ class _EnterDetailsState extends State<EnterDetails> {
               },
             ),
           ),
+          5.height,
           GestureDetector(
             onTap: () {
               if (selectedIndex == -1) {
@@ -587,9 +593,14 @@ class _EnterDetailsState extends State<EnterDetails> {
           ),
           GestureDetector(
             onTap: () {
-              showstep2 = false;
-              showstep3 = true;
-              setState(() {});
+              if (numberCont.text.isNotEmpty &&
+                  (numberCont.text.length != 10)) {
+                toast('"Enter valid number"');
+              } else {
+                showstep2 = false;
+                showstep3 = true;
+                setState(() {});
+              }
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
