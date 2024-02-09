@@ -65,23 +65,23 @@ class _HomePageState extends State<HomePage> {
 
   getQuery() async {
     final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    try {
+      Uri uri = Uri.parse(html.window.location.href);
+      String id = uri.queryParameters['id'] ?? '';
 
-    Uri uri = Uri.parse(html.window.location.href);
-    String id = "IAKEox52Wdf0cK5uFDSb";
-    // uri.queryParameters['id'] ?? '';
-
-    if (id.isNotEmpty) {
-      DocumentSnapshot<Map<String, dynamic>> snapshot =
-          await _firestore.collection('users').doc(id).get();
-      if (snapshot.exists) {
-        valentineUser = UserModel.fromSnapshot(snapshot);
-        isLoading = false;
-        setState(() {});
+      if (id.isNotEmpty) {
+        DocumentSnapshot<Map<String, dynamic>> snapshot =
+            await _firestore.collection('users').doc(id).get();
+        if (snapshot.exists) {
+          valentineUser = UserModel.fromSnapshot(snapshot);
+        }
       }
+      isLoading = false;
+      setState(() {});
+    } catch (e) {
+      isLoading = false;
+      setState(() {});
     }
-
-    isLoading = false;
-    setState(() {});
   }
 
   void updateButtons() {
