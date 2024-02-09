@@ -566,7 +566,7 @@ class _EnterDetailsState extends State<EnterDetails> {
           ),
           20.height,
           AppTextField(
-            textFieldType: TextFieldType.NAME,
+            textFieldType: TextFieldType.NUMBER,
             controller: numberCont,
             inputFormatters: [
               FilteringTextInputFormatter.allow(
