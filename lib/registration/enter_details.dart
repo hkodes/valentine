@@ -129,7 +129,9 @@ class _EnterDetailsState extends State<EnterDetails> {
                           html.window.navigator.clipboard
                               ?.writeText(
                                   "https://valentine.delta-code.com/?id=$docId")
-                              .then((_) {});
+                              .then((_) {
+                            toast("Url copied");
+                          });
                         },
                         icon: Icon(
                           Icons.copy,
