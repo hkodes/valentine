@@ -1,32 +1,31 @@
 {
-    "name": "valentine",
-    "short_name": "valentine",
+    "name": "Ask Me Out",
+    "short_name": "Ask Me Out",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Your Valentine's Day matchmaker",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
-    "icons": [
-        {
-            "src": "icons/Icon-192.png",
+    "icons": [{
+            "src": "icons/main.jpeg",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-512.png",
+            "src": "icons/main.jpeg",
             "sizes": "512x512",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-maskable-192.png",
+            "src": "icons/main.jpeg",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "icons/Icon-maskable-512.png",
+            "src": "icons/main.jpeg",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"

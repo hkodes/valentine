@@ -351,7 +351,9 @@ class _EnterDetailsState extends State<EnterDetails> {
                   borderRadius: BorderRadius.circular(25), color: Colors.white),
               child: Center(
                 child: Text(
-                  donateButtonPressed ? "Next" : "Donate now to send invite",
+                  donateButtonPressed
+                      ? "Grab the Link"
+                      : "Donate now to send invite",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.itim(
                       color: appPinkColor, fontSize: 22, height: 1),
