@@ -24,7 +24,7 @@ class _EnterDetailsState extends State<EnterDetails> {
   bool showstep3 = false;
   bool showstep4 = false;
   bool showstep5 = false;
-
+  bool donateButtonPressed = false;
   bool isCreating = false;
 
   TextEditingController nameCont = TextEditingController();
@@ -307,18 +307,41 @@ class _EnterDetailsState extends State<EnterDetails> {
           ),
           20.height,
           Text(
-            "Help me bridge the distance with love. I'm planning a heartfelt surprise for my girlfriend in Australia. Your generous donation would turn this dream into a beautiful reality and will light up her world and celebrate our love across the miles. Please support me if you can. Thank you",
+            "Help me bridge the distance with love",
+            textAlign: TextAlign.center,
+            style:
+                GoogleFonts.itim(color: Colors.white, fontSize: 21, height: 1),
+          ),
+          5.height,
+          Text(
+            "I'm planning a heartfelt surprise for my girlfriend in Australia. Your generous contribution would turn this dream into a beautiful reality and will light up her world and celebrate our love across the miles. Please support me. Thank you",
             textAlign: TextAlign.center,
             style:
                 GoogleFonts.itim(color: Colors.white, fontSize: 21, height: 1),
           ),
           SizedBox(
-            height: height(context) * 0.07,
+            height: height(context) * 0.05,
           ),
           GestureDetector(
-            onTap: () {
-              js.context
-                  .callMethod('open', ['https://rzp.io/l/Op8ztRNw', '_blank']);
+            onTap: () async {
+              if (donateButtonPressed) {
+                showstep4 = false;
+                showstep5 = true;
+                isCreating = true;
+                setState(() {});
+                docId = await createUserDocument(UserModel(
+                    yourName: nameCont.text.trim(),
+                    valentineName: valentineName.text.trim(),
+                    quote: quoteCont.text.trim(),
+                    gifNo: selectedIndex + 1));
+                isCreating = false;
+                setState(() {});
+              } else {
+                donateButtonPressed = true;
+                setState(() {});
+                js.context.callMethod(
+                    'open', ['https://rzp.io/l/Op8ztRNw', '_blank']);
+              }
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -328,7 +351,7 @@ class _EnterDetailsState extends State<EnterDetails> {
                   borderRadius: BorderRadius.circular(25), color: Colors.white),
               child: Center(
                 child: Text(
-                  "Donate $price",
+                  donateButtonPressed ? "Next" : "Donate now to send invite",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.itim(
                       color: appPinkColor, fontSize: 22, height: 1),
@@ -336,31 +359,11 @@ class _EnterDetailsState extends State<EnterDetails> {
               ),
             ),
           ),
-          20.height,
-          GestureDetector(
-            onTap: () async {
-              showstep4 = false;
-              showstep5 = true;
-              isCreating = true;
-              setState(() {});
-              docId = await createUserDocument(UserModel(
-                  yourName: nameCont.text.trim(),
-                  valentineName: valentineName.text.trim(),
-                  quote: quoteCont.text.trim(),
-                  gifNo: selectedIndex + 1));
-              isCreating = false;
-              setState(() {});
-            },
-            child: Text(
-              "Next",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.itim(
-                  color: Colors.white, fontSize: 20, height: 1),
-            ),
+          SizedBox(
+            height: height(context) * 0.05,
           ),
-          20.height,
           Text(
-            "My tool is completely free to use for your and your loved ones benefit. Forever.",
+            "Note: You'll find the sharable link on the next page",
             textAlign: TextAlign.center,
             style:
                 GoogleFonts.itim(color: Colors.white, fontSize: 21, height: 1),
@@ -511,6 +514,7 @@ class _EnterDetailsState extends State<EnterDetails> {
               if (selectedIndex == -1) {
                 toast("Please choose GIF");
               } else {
+                donateButtonPressed = false;
                 showstep3 = false;
                 showstep4 = true;
                 setState(() {});
@@ -655,6 +659,7 @@ class _EnterDetailsState extends State<EnterDetails> {
           ),
           8.height,
           AppTextField(
+            maxLength: 80,
             textFieldType: TextFieldType.NAME,
             controller: nameCont,
             decoration: inputDecoration(context, borderRadius: 20),
@@ -676,6 +681,7 @@ class _EnterDetailsState extends State<EnterDetails> {
           ),
           8.height,
           AppTextField(
+            maxLength: 80,
             textFieldType: TextFieldType.NAME,
             controller: valentineName,
             textStyle:
